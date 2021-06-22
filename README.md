@@ -6,6 +6,13 @@ the source's abstract syntax tree and extract information about
 classes, class variables, class docstrings, functions and class inheritance relationships.
 The UML class diagram is then generated using PlantUML.
 
+# Run
+export PLANTUML_LIMIT_SIZE=30000
+```
+$ python run.py
+Please provide the path to search in: /path/to/code/rootdir
+```
+
 ## Example
 The UML class diagram was generated from the own source code.
 
