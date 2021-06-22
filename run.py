@@ -34,7 +34,7 @@ def main():
             all_classes += classes
 
     desc_to_uml(all_classes, Path("./output/plantuml.txt"))
-    os.startfile(Path("./output/plantuml.png"))
+    os.system("open ./output/plantuml.png")
 
 
 def configure_logger():
