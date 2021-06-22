@@ -12,7 +12,8 @@ def desc_to_uml(data: List[Any], plantuml_path: Path) -> None:
     with plantuml_path.open('w') as uml:
         uml.write("@startuml\n\n")
         uml.write("skinparam classAttributeIconSize 0\n\n")  # turns off symbols for access modifiers
-
+        uml.write("left to right direction\n\n")  # Changing direction from left to right
+        
         uml.write(class_defs(data))
         # uml.write("hide empty members\n\n")
 
