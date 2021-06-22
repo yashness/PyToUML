@@ -20,8 +20,8 @@ def main():
     if not os.path.exists("output"):
         os.makedirs("output")
 
-    # in_path = input("Please provide the path to search in: ")
-    in_path = Path(".")
+    in_path = input("Please provide the path to search in: ")
+    # in_path = Path(".")
     for dir_path, dir_names, file_names in walk(in_path):
         logging.info(f"Searching sources in {dir_path}")
         for file_name in file_names:
