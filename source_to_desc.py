@@ -79,5 +79,4 @@ def analyze_py_file(py_file_path: str) -> List[ClassDesc]:
         tree = ast.parse(source.read())
     analyzer = ClassVisitor()
     analyzer.visit(tree)
-
     return analyzer.classes

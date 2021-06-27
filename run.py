@@ -6,10 +6,31 @@ import datetime
 from os import walk
 from typing import List
 from pathlib import Path
+import readline
 
 from desc import ClassDesc
 from source_to_desc import analyze_py_file
 from desc_to_uml import desc_to_uml
+
+def pathCompleter(self, text, state):
+    """ 
+    This is the tab completer for systems paths.
+    Only tested on *nix systems
+    """
+    line = readline.get_line_buffer().split()
+    
+    # replace ~ with the user's home dir. See https://docs.python.org/2/library/os.path.html
+    if '~' in text:
+        text = os.path.expanduser('~')
+
+    # autocomplete directories with having a trailing slash
+    if os.path.isdir(text):
+        text += '/'
+
+    return [x for x in glob.glob(text + '*')][state]
+
+readline.parse_and_bind("tab: complete")
+readline.set_completer(pathCompleter)
 
 
 def main():
@@ -20,8 +41,14 @@ def main():
     if not os.path.exists("output"):
         os.makedirs("output")
 
-    in_path = input("Please provide the path to search in: ")
+    # in_path = input("Please provide the path to search in: ")
     # in_path = Path(".")
+    if(len(sys.argv) < 2):
+        in_path = input("Please provide the path to search in: ")
+    else:
+        print("Please provide source directory path")
+        in_path = sys.argv[1]
+
     for dir_path, dir_names, file_names in walk(in_path):
         logging.info(f"Searching sources in {dir_path}")
         for file_name in file_names:
@@ -34,7 +61,7 @@ def main():
             all_classes += classes
 
     desc_to_uml(all_classes, Path("./output/plantuml.txt"))
-    os.system("open ./output/plantuml.png")
+    os.system("open ./output/plantuml.svg")
 
 
 def configure_logger():

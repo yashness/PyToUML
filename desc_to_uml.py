@@ -85,4 +85,4 @@ def docstrings(data: List[ClassDesc]) -> str:
 
 def create_plantuml(plantuml_path: Path) -> None:
     print(f"Creating diagram for {plantuml_path}")
-    subprocess.run(['java', '-jar', 'plantuml.jar', '-duration', str(plantuml_path)])
+    subprocess.run(['java', '-jar', 'plantuml.jar', '-tsvg', '-duration', str(plantuml_path)])
